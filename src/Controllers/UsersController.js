@@ -24,7 +24,7 @@ class UsersController{
 
   async update(request, response){
     const { name, email, password, old_password } = request.body
-    const { user_id } = request.params
+    const user_id = request.user.id;
 
     const user = await knex("users").select("*").where({ id: user_id }).first()
 
@@ -70,7 +70,7 @@ class UsersController{
   }
 
   async delete(request, response){
-    const { user_id } = request.params
+    const user_id = request.user.id
 
     const checkuserExists = await knex("users").select("id").where({ id: user_id}).first()
     
@@ -86,7 +86,7 @@ class UsersController{
   }
 
   async index(request, response){
-    const { user_id } = request.params
+    const user_id = request.user.id
     const { name, email } = request.query
 
     let user = await knex("users").select("name", "email", "avatar").where({ id: user_id }).first()

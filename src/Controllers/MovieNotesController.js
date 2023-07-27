@@ -4,7 +4,7 @@ const knex = require("../database/knex")
 class MovieNotesController {
   async create(request, response){
     const { title, description, rating, tags } = request.body
-    const { user_id } = request.params
+    const user_id  = request.user.id
 
     const user = await knex("users").select("id").where({ id: user_id}).first()
     if(!user){
@@ -88,7 +88,7 @@ class MovieNotesController {
 
   async index(request, response){
     const { title, tags, movie_id } = request.query
-    const { user_id } = request.params
+    const  user_id  = request.user.id
 
     let movie
 

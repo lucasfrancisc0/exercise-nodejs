@@ -1,6 +1,6 @@
 require("express-async-errors")
 const express = require("express")
-const routes = require("./routes/routes")
+const routes = require("./routes")
 const AppErrors = require("./Utils/AppErrors")
 const sqliteConnection = require("./database/sqlite")
 
