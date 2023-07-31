@@ -48,13 +48,15 @@ class MovieNotesController {
   async delete(request, response){
     const { movie_id } = request.params
 
-    const movie = await knex("movie_notes").select("id", "title").where({ id: movie_id }).first()
+    const user_id = request.user.id
+
+    const movie = await knex("movie_notes").select("id", "title").where({ id: movie_id, user_id }).first()
 
     if(!movie){
       throw new AppErrors("Filme não encontrado")
     }
 
-    await knex("movie_notes").delete().where({ id: movie_id })
+    await knex("movie_notes").delete().where({ id: movie_id, user_id })
 
     return response.json({
       message: `O filme ${movie.title} foi excluído com sucesso.`
